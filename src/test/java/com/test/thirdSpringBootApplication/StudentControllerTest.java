@@ -19,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -35,15 +36,11 @@ public class StudentControllerTest {
 	@Autowired
 	private StudentController controller;
 
-	
 	@Autowired
 	private StudentService mockService;
 
-	
-	
-	@Autowired 
+	@Autowired
 	private StudentService realService;
-	 
 
 	private static String name;
 	private Integer id;
@@ -71,12 +68,11 @@ public class StudentControllerTest {
 
 	@Test
 	public void test_getName() {
-		
-		
+
 		Student s1 = new Student(101, "abc", "NY");
 
 		expect(mockService.getStudentById(101)).andReturn(s1);
-		
+
 		replayAll();
 		Student student = controller.students(101);
 		resetAll();
@@ -96,9 +92,9 @@ public class StudentControllerTest {
 		expect(mockService.createStudent(s1)).andReturn(s1).once();
 
 		replayAll();
-		Student student = controller.createStudent(s1);
+		ResponseEntity<Student> response = controller.createStudent(s1);
 		resetAll();
-
+		Student student = response.getBody();
 		assertNotNull(student);
 		assertEquals(student.getStudentId(), 101);
 		assertEquals(student.getStudentName(), name);
@@ -122,8 +118,9 @@ public class StudentControllerTest {
 
 		expect(mockService.getStudent()).andReturn(list).once();
 		replayAll();
-		List<Student> students = controller.getStudent();
+		ResponseEntity<List<Student>> response = controller.getStudent();
 		resetAll();
+		List<Student> students = response.getBody();
 
 		assertNotNull(students);
 		assertEquals(students.get(0).getStudentId(), 101);

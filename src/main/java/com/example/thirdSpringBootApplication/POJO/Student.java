@@ -30,8 +30,8 @@ public class Student {
 	@NotNull
 	private int studentId;
 
-	@NameValidation
-	@NotBlank
+	/*@NameValidation
+	@NotBlank*/
 	private String studentName;
 
 	public int getStudentId() {

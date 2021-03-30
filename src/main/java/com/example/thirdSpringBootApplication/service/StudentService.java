@@ -39,7 +39,7 @@ public class StudentService {
 	}
 
 	public void deleteStudent(Integer id) {
-		repositry.delete(id);
+		repositry.deleteById(id);
 	}
 
 	public Student updateStudent(Student stu) {

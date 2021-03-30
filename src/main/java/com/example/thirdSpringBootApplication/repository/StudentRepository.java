@@ -9,11 +9,12 @@ import com.example.thirdSpringBootApplication.entity.StudentEntity;
 
 @Repository
 public interface StudentRepository extends CrudRepository<StudentEntity, Integer> {
+	@SuppressWarnings("unchecked")
 	StudentEntity save(StudentEntity student);
 
 	List<StudentEntity> findAll();
 	
-	void delete(Integer id);
+	void deleteById(Integer id);
 	
 	StudentEntity findByStudentId(Integer id);
 
